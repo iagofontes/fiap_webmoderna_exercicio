@@ -1,0 +1,100 @@
+<% include ../menu/menu.ejs %>
+<div class="row">
+    <div class="card small">
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <div class="row">
+                    <h4 class="s12">Usuários</h4>
+                    <a href="#modalUsuario" class="waves-effect waves-light btn right modal-trigger"><i class="material-icons left">add</i>adicionar</a>
+                </div>
+            </li>
+            <% 
+                if(usuarios.length > 0) { 
+                    usuarios.forEach(function(user, index) {
+            %>
+                <li class="collection-item">
+                    <div class="row">
+                        <%= user.email %>
+                        <a href="#!" class="secondary-content">
+                            <i class="material-icons">delete_outline</i>
+                        </a>
+                        <a href="#!" class="secondary-content">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </div>
+                </li>
+            <%
+                    }) 
+                } else { 
+            %>
+                <li class="collection-item">
+                    <p>Nenhum item encontrado.</p>
+                </li>
+            <% 
+                } 
+            %>
+        </ul>
+    </div>
+    <div id="modalUsuario" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <div class="row">
+                <h4 class="s12">Cadastrar Usuário</h4>
+                <form action="/adicionarUsuario" method="post">
+                    <div class="input-field col s12">
+                        <input name="usuario[email]" id="email" type="email" class="validate">
+                        <label for="email">E-mail</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input name="usuario[senha]" id="pass" type="password" class="validate">
+                        <label for="pass">Senha</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input name="usuario[confirma]" id="confirmPass" type="password" class="validate">
+                        <label for="confirmPass">Confirmação da senha</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a 
+                href="#!" 
+                class="modal-close waves-effect waves-green btn-flat" 
+                id="cancel" 
+                name="cancel">Cancelar</a>
+            <a 
+                href="#!" 
+                class="modal-close waves-effect waves-green btn-flat"
+                id="save"
+                name="save">Salvar</a>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems,);
+    });
+
+    // buttons action
+    document.querySelector('#save')
+        .addEventListener('click', (ev)=>{
+            ev.preventDefault();
+            document.querySelector('form')
+                .submit();
+        });
+
+    document.querySelector('#cancel')
+        .addEventListener('click', (ev)=>{
+            ev.preventDefault();
+            cleanModal();
+        });
+
+    // functions
+    function cleanModal() {
+        document.querySelector('#email').value = '';
+        document.querySelector('#pass').value = '';
+        document.querySelector('#confirmPass').value = '';
+    }
+
+</script>
+<% include ../menu/close-menu.ejs %>

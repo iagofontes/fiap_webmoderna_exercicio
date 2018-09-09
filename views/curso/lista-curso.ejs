@@ -1,0 +1,121 @@
+<% include ../menu/menu.ejs %>
+<div class="row">
+    <div class="card small">
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <div class="row">
+                    <h4 class="s12">Cursos</h4>
+                    <a href="#modalCurso" class="waves-effect waves-light btn right modal-trigger"><i class="material-icons left">add</i>adicionar</a>
+                </div>
+            </li>
+            <% 
+                if(cursos.length > 0) { 
+                    cursos.forEach(function(curso, index) {
+            %>
+                <li class="collection-item">
+                    <div class="row">
+                        <%= curso.descricao %>
+                        <a href="#!" class="secondary-content">
+                            <i class="material-icons">delete_outline</i>
+                        </a>
+                        <a href="#!" class="secondary-content">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </div>
+                </li>
+            <%
+                    }) 
+                } else { 
+            %>
+                <li class="collection-item">
+                    <p>Nenhum item encontrado.</p>
+                </li>
+            <% 
+                } 
+            %>
+        </ul>
+    </div>
+    <div id="modalCurso" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <div class="row">
+                <h4 class="s12">Cadastrar Curso</h4>
+                <form action="/cadastraCurso" method="post" class="form">
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input id="codigo" name="curso[codigo]" type="text" class="validate">
+                            <label for="codigo">Código</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="descricao" name="curso[descricao]" type="text" class="validate">
+                            <label for="descricao">Descrição</label>
+                            <span class="helper-text" data-error="Descrição inválida" data-success="">Descrição do curso</span>
+                        </div>
+                        <div class="input-field col s12 l6">
+                            <input id="carga" name="curso[carga]" type="text" class="validate">
+                            <label for="carga">Carga Horária</label>
+                            <span class="helper-text" data-error="Carga horária inválida" data-success="">Carga horária do curso informado</span>
+                        </div>
+                        <div class="input-field col s12 l6">
+                            <select name="curso[categoria]" value="categoria">
+                                <option value="" disabled selected>Selecione a categoria</option>
+                                <option value="desenvolvimento">Desenvolvimento</option>
+                                <option value="design">Design</option>
+                            </select>
+                            <label>Categoria</label>
+                            <span class="helper-text" data-error="Categoria inválida" data-success="">Categoria do curso informado</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a 
+                href="#!" 
+                class="modal-close waves-effect waves-green btn-flat" 
+                id="cancel" 
+                name="cancel">Cancelar</a>
+            <a 
+                href="#!" 
+                class="modal-close waves-effect waves-green btn-flat"
+                id="save"
+                name="save">Salvar</a>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems,);
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems,);
+    });
+
+    // let message = '<%= errorMessage %>';
+    // alert(message);
+
+    // buttons action
+    document.querySelector('#save')
+        .addEventListener('click', (ev)=>{
+            ev.preventDefault();
+            document.querySelector('form')
+                .submit();
+        });
+
+    document.querySelector('#cancel')
+        .addEventListener('click', (ev)=>{
+            ev.preventDefault();
+            cleanModal();
+        });
+
+    // functions
+    function cleanModal() {
+        document.querySelector('#codigo').value = '';
+        document.querySelector('#descricao').value = '';
+        document.querySelector('#carga').value = '';
+        document.querySelector('#categoria').value = '';
+    }
+</script>
+<% include ../menu/close-menu.ejs %>

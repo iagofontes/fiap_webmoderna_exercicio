@@ -1,0 +1,44 @@
+<% include ../menu/menu.ejs %>
+<div class="row">
+    <div class="card medium">
+        <div class="card-content">
+            <form action="/cadastraCurso" method="post" class="form">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input id="codigo" name="curso[codigo]" type="text" class="validate">
+                        <label for="codigo">Código</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 l6">
+                        <input id="descricao" name="curso[descricao]" type="text" class="validate">
+                        <label for="descricao">Descrição</label>
+                        <span class="helper-text" data-error="Descrição inválida" data-success="">Descrição do curso</span>
+                    </div>
+                    <div class="input-field col s12 l6">
+                        <input id="carga" name="curso[carga]" type="text" class="validate">
+                        <label for="carga">Carga Horária</label>
+                        <span class="helper-text" data-error="Carga horária inválida" data-success="">Carga horária do curso informado</span>
+                    </div>
+                    <div class="input-field col s12">
+                        <select>
+                            <option value="" disabled selected>Selecione a categoria</option>
+                            <option value="desenvolvimento">Desenvolvimento</option>
+                            <option value="design">Design</option>
+                        </select>
+                        <label>Selecione a categoria</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-action">
+            <a class="waves-effect waves-light btn-large right">
+                <i class="material-icons left">clear</i>Cancelar
+            </a>
+            <a class="waves-effect waves-light btn-large right" style="margin-right: 1em;">
+                <i class="material-icons left">check</i>Salvar
+            </a>
+        </div>
+    </div>
+</div>
+<% include ../menu/close-menu.ejs %>

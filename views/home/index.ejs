@@ -12,26 +12,28 @@
     </script>
 </head>
 <body class="container" style="padding-top:10%">
-    <div class="card medium">
-        <form action="/login" method="post">
-            <div class="row" style="padding:10% 5% 0 5%">
-                <div class="input-field col s12">
-                    <input id="email" type="email" class="validate">
-                    <label for="email">Email</label>
+    <!-- <div class="col s6"> -->
+        <div class="card medium">
+            <form action="/login" method="post">
+                <div class="row" style="padding:10% 5% 0 5%"> 
+                    <div class="input-field col s12">
+                        <input id="email" name="user[email]" type="email" class="validate"                  value="admin@admin.com">
+                        <label for="email">Email</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row" style="padding:0 5%">
-                <div class="input-field col s12">
-                    <input id="password" type="password" class="validate">
-                    <label for="password">Password</label>
+                <div class="row" style="padding:0 5%">
+                    <div class="input-field col s12">
+                        <input id="password" name="user[password]" type="password" class="validate" value="admin">
+                        <label for="password">Password</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row center">
-                <button class="btn waves-effect waves-light blue darken-1" type="submit"                name="action">Logar
-                    <i class="material-icons right">send</i>
-                </button>
-            </div>
-        </form>
-    </div>
+                <div class="row center">
+                    <button class="btn waves-effect waves-light blue darken-1" type="submit"                name="action">Logar
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    <!-- </div> -->
 </body>
 </html>

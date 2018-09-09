@@ -9,7 +9,7 @@ module.exports = function (app) {
         login: function(req, res) {
             var email = req.body.user.email;
             var password = req.body.user.password;
-            if(email == 'admin' && password == 'admin') {
+            if(email == 'admin@admin.com' && password == 'admin') {
                 var user = req.body.user;
                 req.session.user = user;
                 res.redirect('/home');
