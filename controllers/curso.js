@@ -4,7 +4,7 @@ module.exports = function(app) {
 
     var CursoController = {
         cadastraCurso: function(req, res) {
-            var message = 'teste';
+            var message = '';
             if (
             (req.body.curso.codigo.trim().length == 0) || 
             (req.body.curso.descricao.trim().length == 0) || 
@@ -24,11 +24,12 @@ module.exports = function(app) {
         },
         listaCurso: function(req, res) {
             curso.find(function (erro, cursos) {
+                var message = '';
                 if (erro) {
-                    res.render('/home');
-                } else {
-                    res.render('curso/lista-curso', {cursos:cursos});
+                    console.log(erro);
+                    message = 'Problemas ao buscar cursos.';
                 }
+                res.render('curso/lista-curso', {cursos:cursos,errorMessage:message});
             });
         }
     }

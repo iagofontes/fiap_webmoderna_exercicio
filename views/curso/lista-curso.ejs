@@ -5,7 +5,7 @@
             <li class="collection-header">
                 <div class="row">
                     <h4 class="s12">Cursos</h4>
-                    <a href="#modalCurso" class="waves-effect waves-light btn right modal-trigger"><i class="material-icons left">add</i>adicionar</a>
+                    <a href="#modalCurso" class="waves-effect waves-light btn right modal-trigger tooltipped" data-position="top" data-tooltip="Adicionar"><i class="material-icons left">add</i>adicionar</a>
                 </div>
             </li>
             <% 
@@ -15,10 +15,10 @@
                 <li class="collection-item">
                     <div class="row">
                         <%= curso.descricao %>
-                        <a href="#!" class="secondary-content">
+                        <a href="#!" class="secondary-content tooltipped" data-position="top" data-tooltip="Remover" style="margin-left: 2em;">
                             <i class="material-icons">delete_outline</i>
                         </a>
-                        <a href="#!" class="secondary-content">
+                        <a href="#!" class="secondary-content tooltipped" data-position="top" data-tooltip="Editar">
                             <i class="material-icons">edit</i>
                         </a>
                     </div>
@@ -90,11 +90,19 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.modal');
-        var instances = M.Modal.init(elems,);
+        var elems2 = document.querySelectorAll('.tooltipped');
+        M.Modal.init(elems,);
+        M.Tooltip.init(elems2,);
+        let message = '<%= errorMessage %>';
+        if(message){
+            M.toast({html: message, classes: 'center'});
+        }
     });
 
-    // let message = '<%= errorMessage %>';
-    // alert(message);
+      document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.tooltipped');
+    var instances = M.Tooltip.init(elems, options);
+  });
 
     // buttons action
     document.querySelector('#save')

@@ -3,37 +3,42 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Login</title>
+    <title>Login - Courser App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <link rel="stylesheet"                                                  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js">
     </script>
 </head>
 <body class="container" style="padding-top:10%">
-    <!-- <div class="col s6"> -->
-        <div class="card medium">
-            <form action="/login" method="post">
-                <div class="row" style="padding:10% 5% 0 5%"> 
-                    <div class="input-field col s12">
-                        <input id="email" name="user[email]" type="email" class="validate"                  value="admin@admin.com">
-                        <label for="email">Email</label>
-                    </div>
+    <div class="card medium">
+        <form action="/login" method="post">
+            <div class="row" style="padding:10% 5% 0 5%"> 
+                <div class="input-field col s12">
+                    <input id="email" name="user[email]" type="email" class="validate"                  value="admin@admin.com">
+                    <label for="email">Email</label>
                 </div>
-                <div class="row" style="padding:0 5%">
-                    <div class="input-field col s12">
-                        <input id="password" name="user[password]" type="password" class="validate" value="admin">
-                        <label for="password">Password</label>
-                    </div>
+            </div>
+            <div class="row" style="padding:0 5%">
+                <div class="input-field col s12">
+                    <input id="password" name="user[password]" type="password" class="validate" value="admin">
+                    <label for="password">Password</label>
                 </div>
-                <div class="row center">
-                    <button class="btn waves-effect waves-light blue darken-1" type="submit"                name="action">Logar
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-            </form>
-        </div>
-    <!-- </div> -->
+            </div>
+            <div class="row center">
+                <button class="btn waves-effect waves-light blue darken-1" type="submit"                name="action">Logar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <script>
+        
+        let message = '<%= errorMessage %>';
+        if(message){
+            M.toast({html: message, classes: 'center'});
+        }
+
+    </script>
 </body>
 </html>
