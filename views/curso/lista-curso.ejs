@@ -1,6 +1,7 @@
 <% include ../menu/menu.ejs %>
 <div class="row">
-    <div class="card small">
+    <!-- <div class="card small"> -->
+    <div class="col s12">
         <ul class="collection with-header">
             <li class="collection-header">
                 <div class="row">
@@ -19,7 +20,8 @@
                         onclick="setIdToRemove(event, '<%= curso.codigo %>')">
                             <i class="material-icons">delete_outline</i>
                         </a>
-                        <a href="#!" class="secondary-content tooltipped" data-position="top" data-tooltip="Editar">
+                        <a href="#modalCurso" class="secondary-content tooltipped modal-trigger" data-position="top" data-tooltip="Editar" 
+                        onclick="getCurso('<%= curso.codigo %>')">
                             <i class="material-icons">edit</i>
                         </a>
                     </div>
@@ -156,7 +158,6 @@
     document.querySelector('#cancelRemove')
         .addEventListener('click', (ev)=>{
             ev.preventDefault();
-            // cleanModal();
             document
                 .querySelector('#removeCurso')
                 .attributes
@@ -170,12 +171,35 @@
         document.querySelector('#carga').value = '';
         document.querySelector('#categoria').value = '';
     }
+    function loadModal(codigo, descricao, carga, categoria) {
+        document.querySelector('#codigo').value = codigo;
+        document.querySelector('#descricao').value = descricao;
+        document.querySelector('#carga').value = carga;
+        document.querySelector('#categoria').value = categoria;
+    }
     function setIdToRemove(ev, id) {
         ev.preventDefault();
         if(id > 0) {
             document
                 .querySelector('#removeCurso')
                 .action = '/removeCurso/'+id;
+        }
+    }
+    function getCurso(code) {
+        if(code) {
+            fetch('http://localhost:3000/selecionarCurso/'+code)
+                .then((res)=>res.json())
+                .then(response => {
+                    cleanModal();
+                    loadModal(
+                        response.codigo,
+                        response.descricao,
+                        response.carga,
+                        response.categoria
+                    );
+                });
+        } else {
+            M.toast({html: 'Código inválido para curso.'});
         }
     }
 </script>

@@ -61,6 +61,37 @@ module.exports = function(app) {
                 return;
             });
         },
+        buscarCurso: function(req, res) {
+            var idCurso = req.params.idCurso;
+            if(idCurso) {
+                curso
+                    .findOne({codigo:idCurso})
+                    .select('codigo descricao carga categoria')
+                    .exec(function(error, course){
+                        if(error) {
+                            console.log(error);
+                            res.status(500).json('Problemas ao buscar curso.');
+                        } else {
+                            if(course != null && course != undefined) {
+                                res.status(200).json(
+                                    {
+                                        codigo:course.codigo,
+                                        descricao:course.descricao,
+                                        carga:course.carga,
+                                        categoria:course.categoria
+                                    }
+                                );
+                            } else {
+                                res.status(404).json('Curso não encontrado.');
+                            }
+                        }
+                        return;
+                    });
+            } else {
+                res.status(500).json('Problemas ao verificar parâmetros.');
+                return;
+            }
+        },
         removeCurso: function(req, res) {
             var idCurso = req.params.idCurso;
             if(idCurso) {
