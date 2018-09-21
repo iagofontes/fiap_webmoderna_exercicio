@@ -1,3 +1,20 @@
+<% 
+    function formatDate(date) {
+        var monthNames = [
+            "Janeiro", "Fevereiro", "Março",
+            "Abril", "Maio", "Junho", "Julho",
+            "Agosto", "Setembro", "Outubro",
+            "Novembro", "Dezembro"
+            ];
+    
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+    
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,30 +38,27 @@
             <ul class="right hide-on-med-and-down">
                 <li>
                     <a href="/listaCurso">
-                        <!-- <i class="material-icons md-18">list_alt</i> -->
                         Cursos
                     </a>
                 </li>
                 <li>
                     <a href="/gerenciaUsuario">
-                        <!-- <i class="material-icons md-18">people_outline</i>  -->
                         Usuários
                     </a>
                 </li>
                 <li><a href="/logout">
-                    <!-- <i class="material-icons md-18">input</i>  -->
                     Sair</a>
                 </li>
             </ul>
         </div>
     </nav>
     <ul class="sidenav" id="mobile-demo">
-        <li>
-            <div class="user-view">
-                <div class="background">
-                    <img src="https://www.octagonnyc.com/img/views_01.jpg">
+        <li style="height: 15em;">
+            <div class="user-view" style="padding-top: 0;">
+                <div class="background" style="height: 30em;">
+                    <img src="/images/logo.png" class="responsive-img">
                 </div>
-                <span>time</span>
+                <span><%= formatDate(new Date) %></span>
             </div>
         </li>
         <li>
@@ -62,7 +76,7 @@
         <li>
             <a href="/logout">
                 <i class="material-icons md-18">input</i> 
-                LogOut
+                Sair
             </a>
         </li>
     </ul>

@@ -16,11 +16,9 @@
                 <li class="collection-item">
                     <div class="row">
                         <%= user.email %>
-                        <a href="#!" class="secondary-content">
+                        <a href="#modalRemoveUsuario" class="secondary-content tooltipped modal-trigger"      data-position="top" data-tooltip="Remover" style="margin-left: 2em;"
+                            onclick="setIdToRemove(event, '<%= user._id %>')">
                             <i class="material-icons">delete_outline</i>
-                        </a>
-                        <a href="#!" class="secondary-content">
-                            <i class="material-icons">edit</i>
                         </a>
                     </div>
                 </li>
@@ -36,20 +34,20 @@
             %>
         </ul>
     </div>
-    <div id="modalUsuario" class="modal modal-fixed-footer">
+    <div id="modalUsuario" class="modal">
         <div class="modal-content">
             <div class="row">
-                <h4 class="s12">Cadastrar Usuário</h4>
-                <form action="/adicionarUsuario" method="post">
+                <h4 class="col s12">Cadastrar Usuário</h4>
+                <form action="/adicionarUsuario" method="post" id="useradd" name="useradd">
                     <div class="input-field col s12">
                         <input name="usuario[email]" id="email" type="email" class="validate">
                         <label for="email">E-mail</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 l6">
                         <input name="usuario[senha]" id="pass" type="password" class="validate">
                         <label for="pass">Senha</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 l6">
                         <input name="usuario[confirma]" id="confirmPass" type="password" class="validate">
                         <label for="confirmPass">Confirmação da senha</label>
                     </div>
@@ -69,6 +67,32 @@
                 name="save">Salvar</a>
         </div>
     </div>
+    <div id="modalRemoveUsuario" class="modal">
+        <div class="modal-content">
+            <div class="row center">
+                <h4 class="s12">Deseja realmente remover este o usuário ?</h4>
+                <form id="removeUsuario" name="removeUsuario" action="/removerUsuario" method="post" class="form">
+                    <div class="row">
+                        <div class="input-field col s12 center">
+                            <p>Ao remover o usuário selecionado a ação não poderá ser revertida.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a 
+                href="#!" 
+                class="modal-close waves-effect waves-green btn-flat" 
+                id="cancelRemove" 
+                name="cancelRemove">Cancelar</a>
+            <a 
+                href="#!" 
+                class="modal-close waves-effect waves-green btn-flat"
+                id="removerUsuario"
+                name="removerUsuario">Continuar</a>
+        </div>
+    </div>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -80,7 +104,7 @@
     document.querySelector('#save')
         .addEventListener('click', (ev)=>{
             ev.preventDefault();
-            document.querySelector('form')
+            document.querySelector('#useradd')
                 .submit();
         });
 
@@ -90,11 +114,36 @@
             cleanModal();
         });
 
+    document.querySelector('#removerUsuario')
+        .addEventListener('click', (ev)=>{
+            ev.preventDefault();
+            document
+                .querySelector('#removeUsuario')
+                .submit();
+        });
+
+    document.querySelector('#cancelRemove')
+        .addEventListener('click', (ev)=>{
+            ev.preventDefault();
+            document
+                .querySelector('#removeUsuario')
+                .attributes
+                .action = '/removerUsuario';
+        });
+
     // functions
     function cleanModal() {
         document.querySelector('#email').value = '';
         document.querySelector('#pass').value = '';
         document.querySelector('#confirmPass').value = '';
+    }
+    function setIdToRemove(ev, id) {
+        ev.preventDefault();
+        if(id != undefined && id != null && id != '') {
+            document
+            .querySelector('#removeUsuario')
+            .action = '/removerUsuario/'+id;
+        }
     }
 
 </script>

@@ -33,14 +33,6 @@ module.exports = function(app) {
             }
         },
         listaCurso: function(req, res) {
-            // curso.find(function (erro, cursos) {
-            //     var message = '';
-            //     if (erro) {
-            //         console.log(erro);
-            //         message = 'Problemas ao buscar cursos.';
-            //     }
-            //     res.render('curso/lista-curso', {cursos:cursos, errorMessage:message});
-            // });
             CursoController.buscarCursos(function(response) {
                 if(response.status) {
                     res.render('curso/lista-curso', {cursos:response.cursos, errorMessage:''});

@@ -11,7 +11,7 @@ var error = require('./middlewares/error');
 
 var mongoose = require('mongoose');
 
-global.db = mongoose.connect('mongodb://localhost:27017/exercicio');
+global.db = mongoose.connect('mongodb://localhost:27017/rm331535');
 
 mongoose.connection.on('connected', function () {
     console.log('=====Conexão estabelecida com sucesso=====');

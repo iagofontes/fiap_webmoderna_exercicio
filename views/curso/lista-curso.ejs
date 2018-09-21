@@ -1,6 +1,5 @@
 <% include ../menu/menu.ejs %>
 <div class="row">
-    <!-- <div class="card small"> -->
     <div class="col s12">
         <ul class="collection with-header">
             <li class="collection-header">
@@ -15,15 +14,16 @@
             %>
                 <li class="collection-item">
                     <div class="row">
-                        <%= curso.descricao %>
                         <a href="#modalRemoveCurso" class="secondary-content tooltipped modal-trigger" data-position="top" data-tooltip="Remover" style="margin-left: 2em;"
                         onclick="setIdToRemove(event, '<%= curso.codigo %>')">
                             <i class="material-icons">delete_outline</i>
                         </a>
-                        <a href="#modalCurso" class="secondary-content tooltipped modal-trigger" data-position="top" data-tooltip="Editar" 
-                        onclick="getCurso('<%= curso.codigo %>')">
-                            <i class="material-icons">edit</i>
-                        </a>
+                        <h5 class="col s10"><%= curso.descricao %></h5>
+                        <div class="col s12">
+                            <span class="col s12">Carga Horária: <%= curso.carga %> horas</span>
+                            <span class="col s12">Categoria: <%= curso.categoria %> </span>
+                            <span class="col s12">Descrição: <%= curso.descricao %> </span>
+                        </div>
                     </div>
                 </li>
             <%
@@ -38,14 +38,14 @@
             %>
         </ul>
     </div>
-    <div id="modalCurso" class="modal modal-fixed-footer">
+    <div id="modalCurso" class="modal">
         <div class="modal-content">
             <div class="row">
                 <h4 class="s12">Cadastrar Curso</h4>
                 <form id="adicionaCurso" name="adicionaCurso" action="/cadastraCurso" method="post" class="form">
                     <div class="row">
                         <div class="input-field col s4">
-                            <input id="codigo" name="curso[codigo]" type="text" class="validate">
+                            <input id="codigo" name="curso[codigo]" type="text" class="validate" value="<%= (new Date()).getTime() %>">
                             <label for="codigo">Código</label>
                         </div>
                         <div class="input-field col s12">
@@ -84,16 +84,12 @@
                 name="save">Salvar</a>
         </div>
     </div>
-    <div id="modalRemoveCurso" class="modal modal-fixed-footer">
+    <div id="modalRemoveCurso" class="modal">
         <div class="modal-content">
-            <div class="row">
-                <h4 class="s12">Remover Curso</h4>
+            <div class="row center">
+                <h4 class="s12">Deseja realmente remover este curso ?</h4>
                 <form id="removeCurso" name="removeCurso" action="/removeCurso" method="post" class="form">
                     <div class="row">
-                        <div class="input-field col s12 center">
-                            <i class="material-icons">warning</i>
-                            <h4>Deseja realmente remover este curso ?</h4>
-                        </div>
                         <div class="input-field col s12 center">
                             <p>Ao remover o curso selecionado a ação não poderá ser revertida.</p>
                         </div>
@@ -171,35 +167,12 @@
         document.querySelector('#carga').value = '';
         document.querySelector('#categoria').value = '';
     }
-    function loadModal(codigo, descricao, carga, categoria) {
-        document.querySelector('#codigo').value = codigo;
-        document.querySelector('#descricao').value = descricao;
-        document.querySelector('#carga').value = carga;
-        document.querySelector('#categoria').value = categoria;
-    }
     function setIdToRemove(ev, id) {
         ev.preventDefault();
         if(id > 0) {
             document
                 .querySelector('#removeCurso')
                 .action = '/removeCurso/'+id;
-        }
-    }
-    function getCurso(code) {
-        if(code) {
-            fetch('http://localhost:3000/selecionarCurso/'+code)
-                .then((res)=>res.json())
-                .then(response => {
-                    cleanModal();
-                    loadModal(
-                        response.codigo,
-                        response.descricao,
-                        response.carga,
-                        response.categoria
-                    );
-                });
-        } else {
-            M.toast({html: 'Código inválido para curso.'});
         }
     }
 </script>

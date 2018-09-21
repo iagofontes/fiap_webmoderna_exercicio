@@ -30,7 +30,6 @@ module.exports = function (app) {
                                 req.session.usuario = user;
                                 res.redirect('/home');
                             } else {
-                                // res.redirect('/', {errorMessage:'Usuário ou senha incorretos.'});
                                 res.render('home/index', {errorMessage:'Usuário ou senha incorretos.'});
                             }
                         }
